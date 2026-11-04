@@ -38,5 +38,15 @@ namespace RestaurantApp
             }
 
         }
-    }
+        // กรองเฉพาะร้านที่มี rating ตั้งแต่ 4.5 ขึ้นไป
+        var filteredRestaurants = restaurants.Where(r => r.rating >= 4.5);
+
+foreach (var r in filteredRestaurants)
+
+    {
+    Console.WriteLine($"ID : {r.id} | Name : {r.name} | Type : {r.type} | Rating : {r.rating}");
+
+}
+}
+
 }
