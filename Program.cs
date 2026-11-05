@@ -37,6 +37,20 @@ namespace RestaurantApp
                 Console.WriteLine($"ID : {r.id} | Name : {r.name} | Type : {r.type} | Rating : {r.rating}");
             }
 
+            if (restaurants.Count > 0)
+            {
+                // หาร้านที่มีคะแนนสูงสุด (ใช้ OrderByDescending แล้วเลือกตัวแรก)
+                var maxRatingRestaurant = restaurants.OrderByDescending(r => r.rating).First();
+
+                // หาร้านที่มีคะแนนต่ำสุด (ใช้ OrderBy แล้วเลือกตัวแรก)
+                var minRatingRestaurant = restaurants.OrderBy(r => r.rating).First();
+
+                Console.WriteLine("--- ร้านที่คะแนนสูงสุด ---");
+                Console.WriteLine($"ID : {maxRatingRestaurant.id} | Name : {maxRatingRestaurant.name} | Type : {maxRatingRestaurant.type} | Rating : {maxRatingRestaurant.rating}");
+
+                Console.WriteLine("\n--- ร้านที่คะแนนต่ำสุด ---");
+                Console.WriteLine($"ID : {minRatingRestaurant.id} | Name : {minRatingRestaurant.name} | Type : {minRatingRestaurant.type} | Rating : {minRatingRestaurant.rating}");
+            }
         }
         // กรองเฉพาะร้านที่มี rating ตั้งแต่ 4.5 ขึ้นไป
         var filteredRestaurants = restaurants.Where(r => r.rating >= 4.5);
