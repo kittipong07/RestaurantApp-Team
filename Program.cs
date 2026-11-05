@@ -19,8 +19,33 @@ namespace RestaurantApp
             this.type = type;
             this.rating = rating;
         }
+        static void AddRestaurant(List<Restaurant> restaurants)
+        {
+            Console.WriteLine("--- เพิ่มร้านอาหารใหม่ ---");
 
-        
+            // สร้าง ID อัตโนมัติโดยอิงจากจำนวนสมาชิกที่มีอยู่เดิม (หรือจะรับค่าจากคีย์บอร์ดเพิ่มก็ได้)
+            int id = restaurants.Count > 0 ? restaurants[restaurants.Count - 1].id + 1 : 1;
+
+            Console.Write("ป้อนชื่อร้าน: ");
+            string name = Console.ReadLine();
+
+            Console.Write("ป้อนประเภทอาหาร: ");
+            string type = Console.ReadLine();
+
+            Console.Write("ป้อนคะแนน (เช่น 4.5): ");
+            double rating;
+            while (!double.TryParse(Console.ReadLine(), out rating))
+            {
+                Console.Write("กรุณากรอกตัวเลขคะแนนให้ถูกต้อง: ");
+            }
+
+            // สร้าง Object และ Add เข้า List
+            Restaurant newRestaurant = new Restaurant(id, name, type, rating);
+            restaurants.Add(newRestaurant);
+
+            Console.WriteLine("เพิ่มร้านอาหารสำเร็จ!\n");
+        }
+
     }
     internal class Program
     {
@@ -36,7 +61,7 @@ namespace RestaurantApp
             {
                 Console.WriteLine($"ID : {r.id} | Name : {r.name} | Type : {r.type} | Rating : {r.rating}");
             }
-
+            AddRestaurant(restaurants);
         }
         // กรองเฉพาะร้านที่มี rating ตั้งแต่ 4.5 ขึ้นไป
         var filteredRestaurants = restaurants.Where(r => r.rating >= 4.5);
