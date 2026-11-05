@@ -74,4 +74,4 @@ foreach (var r in filteredRestaurants)
 }
 }
 
-}//
+}
