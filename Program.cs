@@ -62,6 +62,37 @@ namespace RestaurantApp
                 Console.WriteLine($"ID : {r.id} | Name : {r.name} | Type : {r.type} | Rating : {r.rating}");
             }
             AddRestaurant(restaurants);
+
+            // ค้นหาร้านอาหาร
+            SearchRestaurant(restaurants);
+
+            static void SearchRestaurant(List<Restaurant> restaurants)
+            {
+                Console.WriteLine("\n--- ค้นหาร้านอาหาร ---");
+
+                Console.Write("ป้อนชื่อร้านที่ต้องการค้นหา: ");
+                string searchName = Console.ReadLine();
+
+                // ค้นหาจากชื่อร้าน โดยไม่สนใจตัวพิมพ์เล็ก-ใหญ่
+                var result = restaurants.Where(r =>
+                    r.name.Contains(searchName, StringComparison.OrdinalIgnoreCase));
+
+                // ตรวจสอบว่าพบข้อมูลหรือไม่
+                if (result.Any())
+                {
+                    Console.WriteLine("\n--- ผลการค้นหา ---");
+
+                    foreach (var r in result)
+                    {
+                        Console.WriteLine($"ID: {r.id} | Name: {r.name} | Type: {r.type} | Rating: {r.rating}");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("ไม่พบร้านอาหารที่ค้นหา!");
+                }
+            }
+
         }
         // กรองเฉพาะร้านที่มี rating ตั้งแต่ 4.5 ขึ้นไป
         var filteredRestaurants = restaurants.Where(r => r.rating >= 4.5);
